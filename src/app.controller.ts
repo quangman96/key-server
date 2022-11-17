@@ -1,5 +1,6 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AppService } from './app.service';
+import { MANNQ_DATA } from './interface';
 
 @Controller()
 export class AppController {
@@ -19,5 +20,20 @@ export class AppController {
   @Post('/keys')
   getKeys(@Body() body: { private: string }) {
     return this.appService.getKeys(body['key']);
+  }
+
+  @Post('/push')
+  pushData(@Body() body: MANNQ_DATA) {
+    return this.appService.pushData(body);
+  }
+
+  @Post('/pull')
+  pullData() {
+    return this.appService.pullData();
+  }
+
+  @Post('/clear')
+  clearData() {
+    return this.appService.clearData();
   }
 }
